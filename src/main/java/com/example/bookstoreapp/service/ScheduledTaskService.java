@@ -5,6 +5,7 @@ import com.example.bookstoreapp.entity.Student;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
@@ -16,7 +17,7 @@ public class ScheduledTaskService {
     private final MailService mailService;
     private final AuthorService authorService;
 
-    //    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 * * * * ?")
     @Transactional
     public void checkAndSendNotifications() {
 
@@ -24,7 +25,7 @@ public class ScheduledTaskService {
         var author = authorService.getAllAuthors().stream().findAny().get();
         var followers = author.getFollowers();
         var books = author.getBooks();
-        log.info("" + followers);
+        log.info("followers {}", followers);
         for (Book book : books) {
             LocalDateTime createdAt = book.getCreatedAt();
             if (createdAt.isAfter(fiveMinutesAgo)) {

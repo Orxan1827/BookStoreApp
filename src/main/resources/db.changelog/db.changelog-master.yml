@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - includeAll:
+      path: db.changelog/v1.0.0
+#  - include:
+#      file: db.changelog/v1.0.0/db.changelog-create-book-table.yaml
+#  - include:
+#      file: db.changelog/v1.0.0/db.changelog-create-student-table.yaml
+#  - include:
+#      file: db.changelog/v1.0.0/db.changelog-create-user-table.yaml
+#  - include:
+#      file: db.changelog/v1.0.0/db.changelog-create-student-books-table.yaml
+#  - include:
+#      file: db.changelog/v1.0.0/db.changelog-create-subscription-table.yaml

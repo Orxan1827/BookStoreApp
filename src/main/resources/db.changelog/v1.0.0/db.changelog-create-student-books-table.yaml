@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08.02.2024
+      author: Orxan Rustamov
+      changes:
+        - createTable:
+            tableName: student_books
+            columns:
+              - column:
+                  name: student_id
+                  type: bigint
+              - column:
+                  name: book_id
+                  type: bigint
+            primaryKey:
+              - column:
+                  name: student_id
+              - column:
+                  name: book_id
+            foreignKeyConstraints:
+              - foreignKeyConstraint:
+                  baseColumnNames: student_id
+                  baseTableName: students
+                  referencedColumnNames: id
+                  referencedTableName: students
+              - foreignKeyConstraint:
+                  baseColumnNames: book_id
+                  baseTableName: books
+                  referencedColumnNames: id
+                  referencedTableName: books

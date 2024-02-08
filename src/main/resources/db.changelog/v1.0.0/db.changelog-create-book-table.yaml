@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08.02.2024
+      author: Orxan Rustamov
+      changes:
+        - createTable:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: current_timestamp
+              - column:
+                  name: author_id
+                  type: bigint

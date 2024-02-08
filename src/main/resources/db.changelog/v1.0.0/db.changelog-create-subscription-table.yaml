@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08.02.2024
+      author: Orxan Rustamov
+      changes:
+        - createTable:
+            tableName: subscriptions
+            columns:
+              - column:
+                  name: author_id
+                  type: bigint
+              - column:
+                  name: student_id
+                  type: bigint
+            primaryKey:
+              - column:
+                  name: author_id
+              - column:
+                  name: student_id
+            foreignKeyConstraints:
+              - foreignKeyConstraint:
+                  baseColumnNames: author_id
+                  baseTableName: authors
+                  referencedColumnNames: id
+                  referencedTableName: authors
+              - foreignKeyConstraint:
+                  baseColumnNames: student_id
+                  baseTableName: students
+                  referencedColumnNames: id
+                  referencedTableName: students

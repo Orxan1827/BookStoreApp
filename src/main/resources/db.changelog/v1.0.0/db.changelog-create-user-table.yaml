@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08.02.2024
+      author: Orxan Rustamov
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: email
+                  type: varchar(255)
+              - column:
+                  name: username
+                  type: varchar(255)
+              - column:
+                  name: password
+                  type: varchar(255)
+              - column:
+                  name: role
+                  type: varchar(255)
+              - column:
+                  name: student_id
+                  type: bigint
+              - column:
+                  name: author_id
+                  type: bigint

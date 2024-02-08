@@ -1,0 +1,42 @@
+server:
+  port: 8095
+spring:
+  application:
+    name: bookstoreapp
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: orxanrustamov1827@gmail.com
+    password: asjoxyxwfvzpncrp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bookStoreApp
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  liquibase:
+    change-log: classpath:db.changelog/db.changelog-master.yml
+    enabled: true
+
+jwt-variables:
+  KEY: secret-key
+  ISSUER: Orxan
+  EXPIRES_ACCESS_TOKEN_MINUTE: 45
+
+

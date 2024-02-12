@@ -1,5 +1,5 @@
 server:
-  port: 8095
+  port: 8080
 spring:
   application:
     name: bookstoreapp
@@ -16,7 +16,7 @@ spring:
           starttls:
             enable: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/bookStoreApp
+    url: jdbc:postgresql://localhost:5432/book-store?createDatabaseIfNotExist=true
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver

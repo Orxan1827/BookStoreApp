@@ -2,16 +2,18 @@ package com.example.bookstoreapp.service;
 
 import com.example.bookstoreapp.dto.request.CreateBookRequest;
 import com.example.bookstoreapp.dto.request.SignUpRequest;
+import com.example.bookstoreapp.dto.response.AuthorResponse;
 import com.example.bookstoreapp.entity.Author;
 import com.example.bookstoreapp.entity.Book;
 import com.example.bookstoreapp.entity.User;
 import com.example.bookstoreapp.exception.AuthorNotFoundException;
-import com.example.bookstoreapp.exception.GenericException;
 import com.example.bookstoreapp.mapper.AuthorMapper;
 import com.example.bookstoreapp.repository.AuthorRepository;
 import com.example.bookstoreapp.repository.BookRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -33,16 +35,16 @@ public class AuthorService {
         return authorRepository.findAll();
     }
 
+    public List<AuthorResponse> getSearchForSpecification(String name) {
+        Specification<Author> spec = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("name"), name);
+         return authorRepository.findAll((Sort) spec).stream().map(authorMapper::mapEntityToResponse).toList();
+    }
+
     public void createAuthor(SignUpRequest signUpRequest, User user) {
         Author author = new Author();
-
         author.setAge(signUpRequest.getAge());
         author.setName(signUpRequest.getName());
         author.setUser(user);
-//        Book book = new Book();
-//        book.setName(signUpRequest.getBookName());
-//        book.setAuthor(author);
-//        author.setBooks(List.of(book));
         user.setAuthor(authorRepository.save(author));
     }
 

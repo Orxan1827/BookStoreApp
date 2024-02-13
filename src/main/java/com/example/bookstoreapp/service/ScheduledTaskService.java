@@ -17,7 +17,7 @@ public class ScheduledTaskService {
     private final MailService mailService;
     private final AuthorService authorService;
 
-    @Scheduled(cron = "0 * * * * ?")
+//    @Scheduled(cron = "0 * * * * ?")
     @Transactional
     public void checkAndSendNotifications() {
 

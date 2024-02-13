@@ -20,11 +20,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-	implementation 'com.auth0:java-jwt:4.4.0'
+	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${swaggerVersion}"
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+	implementation "com.auth0:java-jwt:${jwtVersion}"
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	implementation 'org.liquibase:liquibase-core'
+//	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 //	implementation 'com.google.guava:guava:32.0.0-android'
 //	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 	compileOnly 'org.projectlombok:lombok'

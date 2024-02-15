@@ -35,18 +35,13 @@ public class StudentController {
         studentService.addBookToStudent(studentId, bookId);
     }
 
-    @PostMapping("/subscription/{author-id}/subscription/{student-id}")
+    @PostMapping("/follow/{author-id}/students/{student-id}")
     public ResponseEntity<String> followAuthor(@PathVariable("author-id") Long authorId, @PathVariable("student-id") Long studentId) {
         return ResponseEntity.ok(studentService.followAuthor(authorId, studentId));
     }
 
-    @DeleteMapping("/{student-id}")
-    public ResponseEntity<String> unfollowAuthor(@PathVariable("student-id") Long studentId) {
-        return ResponseEntity.ok(studentService.unfollowAuthor(studentId));
+    @DeleteMapping("/unfollow/{author-id}/students/{student-id}")
+    public ResponseEntity<String> unfollowAuthor(@PathVariable("student-id") Long studentId, @PathVariable("author-id") Long authorId) {
+        return ResponseEntity.ok(studentService.unfollowAuthor(studentId, authorId));
     }
-
-//    @GetMapping("followers/{student-id}")
-//    public List<Student> getAllFollowers(@PathVariable("student-id")Long studentId){
-//        return studentService.getAllFollowers(studentId);
-//    }
 }

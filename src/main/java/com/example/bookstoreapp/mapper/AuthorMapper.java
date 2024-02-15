@@ -2,6 +2,7 @@ package com.example.bookstoreapp.mapper;
 
 import com.example.bookstoreapp.dto.request.CreateAuthorRequest;
 import com.example.bookstoreapp.dto.request.CreateUserRequest;
+import com.example.bookstoreapp.dto.request.SignUpRequest;
 import com.example.bookstoreapp.dto.response.AuthorResponse;
 import com.example.bookstoreapp.dto.response.UserResponse;
 import com.example.bookstoreapp.entity.Author;

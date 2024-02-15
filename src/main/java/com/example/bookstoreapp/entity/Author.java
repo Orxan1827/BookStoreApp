@@ -22,10 +22,10 @@ public class Author {
     @Column(name = "age")
     private int age;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = {CascadeType.ALL, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Book> books;
 
-    @ManyToMany(mappedBy = "subscriptions", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "subscriptions", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Student> followers;
 

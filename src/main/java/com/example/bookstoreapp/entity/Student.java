@@ -36,7 +36,7 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Book> books;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "subscriptions",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))

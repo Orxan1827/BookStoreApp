@@ -16,4 +16,5 @@ public class CreateBookRequest {
 
     @NotNull
     private Long id;
+
 }

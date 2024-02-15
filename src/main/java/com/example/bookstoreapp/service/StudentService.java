@@ -8,7 +8,6 @@ import com.example.bookstoreapp.entity.Book;
 import com.example.bookstoreapp.entity.Student;
 import com.example.bookstoreapp.entity.User;
 import com.example.bookstoreapp.exception.AuthorNotFoundException;
-import com.example.bookstoreapp.exception.GenericException;
 import com.example.bookstoreapp.exception.StudentNotFoundException;
 import com.example.bookstoreapp.mapper.StudentMapper;
 import com.example.bookstoreapp.repository.AuthorRepository;
@@ -30,16 +29,10 @@ public class StudentService {
     private final AuthorRepository authorRepository;
     private final MailService mailService;
 
-    public Student getStudent(Long student_Id) {
-        return studentRepository.findById(student_Id).orElseThrow(StudentNotFoundException::new);
-    }
-
-    public List<Student> getAllFollowers(Long student_Id) {
-       return getStudent(student_Id)
-               .getSubscriptions()
-               .stream()
-               .flatMap(author -> author.getFollowers().stream())
-               .toList();
+    public Student getStudent(Long studentId) {
+        return studentRepository
+                .findById(studentId)
+                .orElseThrow(StudentNotFoundException::new);
     }
 
     private StudentResponseWithBook getStudentById(Long studentId) {
@@ -70,13 +63,14 @@ public class StudentService {
         student.setAge(signUpRequest.getAge());
         student.setUser(user);
         student.setEmail(signUpRequest.getEmail());
-        user.setStudent(studentRepository.save(student));
+        studentRepository.save(student);
     }
 
     @Transactional
-    public String followAuthor(Long author_Id, Long student_Id) {
-        var author = authorRepository.findById(author_Id).orElseThrow(AuthorNotFoundException::new);
-        var student = getStudent(student_Id);
+    public String followAuthor(Long authorId, Long studentId) {
+        var student = getStudent(studentId);
+        var author = new Author();
+        author.setId(authorId);
         List<Author> authors = student.getSubscriptions();
         if (!(authors.contains(author))) {
             authors.add(author);
@@ -87,14 +81,27 @@ public class StudentService {
         return "The author is already subscribed to!";
     }
 
-    public String unfollowAuthor(Long student_Id) {
-        Student student = getStudent(student_Id);
-        List<Author> subscriptions = student.getSubscriptions();
-        subscriptions.stream()
-                .filter(author -> author.getFollowers()
-                        .removeIf(student1 -> student1.getId().equals(student_Id)))
-                .findFirst().ifPresent(authorRepository::save);
+    @Transactional
+    public String unfollowAuthor(Long studentId, Long authorId) {
+        Student student = getStudent(studentId);
 
-       return mailService.sendEmail("orxanrustamov1827@gmail.com", "subscribe notification", String.format("%s unsubscribed", student.getName()));
+        Author authorToUnfollow = student.getSubscriptions().stream()
+                .filter(author -> author.getId().equals(authorId))
+                .findFirst()
+                .orElseThrow(() -> new AuthorNotFoundException("Author not found with id: " + authorId));
+
+        boolean removed = authorToUnfollow
+                .getFollowers()
+                .removeIf(follower -> follower.getId().equals(studentId));
+        if (!removed) {
+            return "Student was not following the author with id: " + authorId;
+        }
+
+        student.getSubscriptions().remove(authorToUnfollow);
+        studentRepository.save(student);
+
+        String emailContent = String.format("%s unsubscribed from author with id: %d", student.getName(), authorId);
+        mailService.sendEmail("orxanrustamov1827@gmail.com", "subscribe notification", emailContent);
+        return emailContent;
     }
 }

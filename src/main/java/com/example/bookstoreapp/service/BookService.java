@@ -3,6 +3,7 @@ package com.example.bookstoreapp.service;
 import com.example.bookstoreapp.dto.response.BookResponse;
 import com.example.bookstoreapp.dto.response.BookResponseWithStudents;
 import com.example.bookstoreapp.dto.response.BookReadersResponse;
+import com.example.bookstoreapp.entity.Book;
 import com.example.bookstoreapp.exception.BookNotFoundException;
 import com.example.bookstoreapp.mapper.BookMapper;
 import com.example.bookstoreapp.repository.BookRepository;
@@ -23,6 +24,10 @@ public class BookService {
                 .stream()
                 .map(bookMapper::mapEntityToBookResponse)
                 .collect(Collectors.toList());
+    }
+
+    protected Book getBook(Long bookId){
+        return bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
     }
 
     private BookResponseWithStudents getBookById(Long bookId) {

@@ -71,7 +71,6 @@ public class AuthService {
         }
         User fromDb = userService.create(user);
 
-
         return UserDto.builder()
                 .id(fromDb.getId())
                 .username(fromDb.getUsername())

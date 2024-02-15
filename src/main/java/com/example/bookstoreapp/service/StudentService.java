@@ -29,7 +29,7 @@ public class StudentService {
     private final AuthorRepository authorRepository;
     private final MailService mailService;
 
-    public Student getStudent(Long studentId) {
+    protected Student getStudent(Long studentId) {
         return studentRepository
                 .findById(studentId)
                 .orElseThrow(StudentNotFoundException::new);
@@ -48,7 +48,6 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-
     public void addBookToStudent(Long studentId, Long bookId) {
         var student = getStudent(studentId);
         var book = new Book();
@@ -58,11 +57,12 @@ public class StudentService {
     }
 
     public void creatStudent(SignUpRequest signUpRequest, User user) {
-        Student student = new Student();
-        student.setName(signUpRequest.getName());
-        student.setAge(signUpRequest.getAge());
-        student.setUser(user);
-        student.setEmail(signUpRequest.getEmail());
+        Student student = Student.builder()
+                .name(signUpRequest.getName())
+                .age(signUpRequest.getAge())
+                .user(user)
+                .email(signUpRequest.getEmail())
+                .build();
         studentRepository.save(student);
     }
 

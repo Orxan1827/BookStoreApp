@@ -42,13 +42,12 @@ class AuthorServiceTest {
 
     @BeforeEach
     void setUp() {
-        bookRepository = Mockito.mock(BookRepository.class);
         authorMapper = Mockito.mock(AuthorMapper.class);
         mailService = Mockito.mock(MailService.class);
         authorRepository = Mockito.mock(AuthorRepository.class);
         authorService = Mockito.mock(AuthorService.class);
 
-        authorService = new AuthorService(authorRepository, authorMapper, mailService, bookRepository);
+        authorService = new AuthorService(authorRepository, authorMapper, mailService);
 
         book = Book.builder()
                 .id(2L)

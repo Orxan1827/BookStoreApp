@@ -4,6 +4,7 @@ import com.example.bookstoreapp.dto.TokenResponseDto;
 import com.example.bookstoreapp.dto.request.LoginRequest;
 import com.example.bookstoreapp.dto.request.SignUpRequest;
 import com.example.bookstoreapp.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,12 +20,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<TokenResponseDto> authenticate(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<TokenResponseDto> authenticate(@Valid @RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(authService.login(loginRequest));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid g@RequestBody SignUpRequest signUpRequest) {
         return ResponseEntity.ok(authService.signup(signUpRequest));
     }
 }

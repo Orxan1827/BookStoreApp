@@ -26,7 +26,6 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
-    private final AuthorRepository authorRepository;
     private final MailService mailService;
 
     protected Student getStudent(Long studentId) {

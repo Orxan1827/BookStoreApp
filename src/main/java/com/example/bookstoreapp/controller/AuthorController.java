@@ -17,7 +17,7 @@ public class AuthorController {
 
 
     @DeleteMapping("/{author-id}/books/{book-id}")
-    public void deleteBook(@PathVariable("author-id") Long authorId, @PathVariable("book-id") Long bookId) {
+    public void deleteBook(@Valid @PathVariable("author-id") Long authorId, @PathVariable("book-id") Long bookId) {
         authorService.deleteBook(authorId, bookId);
     }
 
